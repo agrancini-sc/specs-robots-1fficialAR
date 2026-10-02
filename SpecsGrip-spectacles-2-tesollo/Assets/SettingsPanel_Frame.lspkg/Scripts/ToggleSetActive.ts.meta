@@ -1,0 +1,48 @@
+- !<AssetImportMetadata/091c6893-efb5-e178-1f27-99b75da7e43b>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 1cdab502-39a8-4abe-a5fb-cf3c3f005fe4
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 1cdab502-39a8-4abe-a5fb-cf3c3f005fe4
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> e372fa1c-28b0-4fcb-b79e-c86a16d3da0d
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/e372fa1c-28b0-4fcb-b79e-c86a16d3da0d>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 342e9b5b-2b9e-4c59-9189-10d8aa861cff
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    invert: false
+    targets: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - targets: !<reference.SceneObject[]>
+        []
+      invert: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject[] targets = {} {"hint":"Object(s) enabled when the switch is ON (disabled when OFF)."}'
+    - '// @input bool invert {"hint":"Invert: enable on OFF instead of ON."}'

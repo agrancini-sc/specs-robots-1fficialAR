@@ -42,6 +42,7 @@ rewrite — these are the upstream projects, mirrored.
 | [VectAR-Airhokey](#vectar-airhokey) | Anki Vector | AR air hockey vs. a real robot | [PtPavloTkachenko](https://github.com/PtPavloTkachenko) |
 | [so101-helper](#so101-helper) | Hugging Face SO-101 arm | Assembly, calibration & on-LAN control | [a-sumo](https://github.com/a-sumo) |
 | [specs-microduck](#specs-microduck) | Pollen Robotics Micro Duck | Hand-gesture teleoperation | [kgediya](https://github.com/kgediya) |
+| [SpecsGrip-spectacles-2-tesollo](#specsgrip-spectacles-2-tesollo) | Tesollo Delto DG-5F robot hand | Bare-hand finger teleoperation | [amirmohideen](https://github.com/amirmohideen) |
 
 ---
 
@@ -205,6 +206,32 @@ relay at 30–50 Hz.
 
 ---
 
+### SpecsGrip-spectacles-2-tesollo
+
+📁 [`SpecsGrip-spectacles-2-tesollo/`](./SpecsGrip-spectacles-2-tesollo) &nbsp;•&nbsp; 🔗 Upstream: [amirmohideen/SpecsGrip](https://github.com/amirmohideen/SpecsGrip)
+
+Control all 20 joints of a [**Tesollo Delto DG-5F**](https://www.tesollo.com/) robot hand
+with your **bare hand**. The Lens measures every finger joint from Spectacles hand
+tracking — curl, spread, and thumb opposition — and streams the raw angles at 60 Hz to a
+small bridge on a Windows PC, which drives the hand in real time through Tesollo's own SDK.
+
+The interesting split is where the decisions live. The Lens only measures; every opinion —
+scaling, joint limits, smoothing, speed caps — sits in one `config.json` on the PC, so
+retuning the robot is a two-second bridge restart instead of a Lens rebuild. Safety runs in
+a fixed order every tick (scale → clamp to limits taken from Tesollo's 100 factory poses →
+smooth → speed-limit), the bridge starts disarmed, and the hand freezes in place if the
+signal drops. Left hands are mirrored in the Lens by flipping the palm frame, so either
+hand drives the right-handed robot the same way.
+
+**What's inside**
+- `SpecsGrip.esproj` — the Lens Studio project; `Assets/Scripts/HandBridge.ts` does the measuring and streaming
+- `bridge/` — zero-dependency (stdlib-only) Python bridge: WebSocket server, retargeting and safety pipeline, and `ctypes` bindings to Tesollo's `DGSDK.dll`
+- `bridge/test_sender.py` · `netcheck.py` · `connecttest.py` — synthetic hand poses, a network preflight, and a read-only gripper check
+
+> No robot handy? `py bridge.py --dry-run --auto-arm` plus `py test_sender.py --wave` runs the whole pipeline without touching the hand. The bridge is Windows-only for now — it drives the `DGSDK.dll` that ships with Tesollo's DGManager.
+
+---
+
 ## Getting Started
 
 **These projects use [Git LFS](https://git-lfs.com/)** for 3D assets, textures, meshes, demo
@@ -276,11 +303,15 @@ released under Apache 2.0. See the project's [`LICENSE`](./so101-helper/LICENSE)
 [Hugging Face Spaces](https://huggingface.co/spaces/pollen-robotics/microduck-simulator);
 physics by [MuJoCo](https://github.com/google-deepmind/mujoco).
 
+**SpecsGrip-spectacles-2-tesollo** — © 2026 **Amir Mohideen Basheer Khan**
+([**@amirmohideen**](https://github.com/amirmohideen)). Drives the robot through Tesollo's
+DGSDK, which ships with Tesollo's DGManager and is not included here.
+
 Robot platforms referenced here are products of
 [Unitree Robotics](https://www.unitree.com/),
 [Pollen Robotics](https://www.pollen-robotics.com/),
-[Hugging Face](https://huggingface.co/), and Anki / Digital Dream Labs, and are
-trademarks of their respective owners.
+[Hugging Face](https://huggingface.co/), [Tesollo](https://www.tesollo.com/), and Anki /
+Digital Dream Labs, and are trademarks of their respective owners.
 
 ## Licenses
 
@@ -295,6 +326,7 @@ folder keeps its own `LICENSE` file with the original copyright notice intact:
 | [VectAR-Airhokey](./VectAR-Airhokey/LICENSE) | MIT |
 | [so101-helper](./so101-helper/LICENSE) | Apache 2.0 |
 | [specs-microduck](./specs-microduck/LICENSE) | MIT |
+| [SpecsGrip-spectacles-2-tesollo](./SpecsGrip-spectacles-2-tesollo/LICENSE) | MIT |
 
 Third-party components retain their own licenses (Apache 2.0, BSD, LGPL v3, and others) as
 documented within each project.

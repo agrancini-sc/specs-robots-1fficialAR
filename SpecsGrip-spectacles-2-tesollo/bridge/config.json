@@ -1,0 +1,65 @@
+{
+  "_comment": "Tuning lives here, not in the lens. Edit + restart bridge.py (2s) instead of rebuilding and pushing a Lens (minutes).",
+
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8765
+  },
+
+  "gripper": {
+    "ip": "169.254.186.72",
+    "port": 502,
+    "slave_id": 1,
+    "model": 24354,
+    "control_mode": 1,
+    "_control_mode_note": "1 = DEVELOPER. MoveServoJoint() requires this.",
+    "read_timeout": 60000,
+    "pid": {"mode": 0, "p": 1.0, "d": 3.0, "i": 0.0, "i_limit": 0.0},
+    "_pid_note": "mode 0 = PD. P=1/D=3 are the factory DG-5F developer-recipe defaults."
+  },
+
+  "control": {
+    "rate_hz": 60,
+    "smoothing_alpha": 0.35,
+    "_smoothing_note": "EMA on the incoming human angles. Lower = smoother + laggier. 0..1, 1 disables.",
+    "max_deg_per_sec": 200.0,
+    "_slew_note": "Per-joint slew-rate cap. The main protection against a tracking glitch snapping a finger.",
+    "watchdog_ms": 300,
+    "_watchdog_note": "No valid packet for this long -> hold the last commanded pose (freeze, do not go limp or snap home).",
+    "neutral_pose_deg": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "return_to_neutral_on_exit": true,
+    "return_seconds": 2.0
+  },
+
+  "_joint_order": "0-3 thumb, 4-7 index, 8-11 middle, 12-15 ring, 16-19 pinky. Within a finger: [abduction, mcp, pip, dip]; thumb is [abduction, opposition, mcp, ip].",
+  "_range_provenance": "Every 'hard' range below is the observed min/max across the 100 factory poses Tesollo ships in DGManager's DG-5F-R recipe file, so each is known-reachable.",
+  "_zero_invariant": "Each 'in'/'out' pair places human 0 at robot 0, so a relaxed flat hand commands the all-zeros factory neutral pose. bridge.py verifies this at startup and warns if an edit breaks it. Keep it when retuning: it is what makes 'hand goes flat' a predictable, safe resting state.",
+  "_inverting": "To flip a joint's direction, swap its two 'out' values (keep 'hard' as lo,hi).",
+
+  "joints": [
+    {"name": "thumb_abd",   "in": [-10,  40], "out": [  -5,  20], "hard": [  -5,  20]},
+    {"name": "thumb_opp",   "in": [  0,  90], "out": [   0,-100], "hard": [-100,   0]},
+    {"name": "thumb_mcp",   "in": [  0,  60], "out": [   0,  20], "hard": [   0,  20]},
+    {"name": "thumb_ip",    "in": [  0,  80], "out": [   0,  55], "hard": [   0,  55]},
+
+    {"name": "index_abd",   "in": [-20,   5], "out": [ -20,   5], "hard": [ -20,   5]},
+    {"name": "index_mcp",   "in": [  0,  90], "out": [   0,  45], "hard": [   0,  45]},
+    {"name": "index_pip",   "in": [  0, 100], "out": [   0,  55], "hard": [   0,  55]},
+    {"name": "index_dip",   "in": [  0,  80], "out": [   0,  35], "hard": [   0,  35]},
+
+    {"name": "middle_abd",  "in": [ -5,  10], "out": [  -5,  10], "hard": [  -5,  10]},
+    {"name": "middle_mcp",  "in": [  0,  90], "out": [   0,  75], "hard": [   0,  75]},
+    {"name": "middle_pip",  "in": [  0, 100], "out": [   0,  85], "hard": [   0,  85]},
+    {"name": "middle_dip",  "in": [  0,  80], "out": [   0,  70], "hard": [   0,  70]},
+
+    {"name": "ring_abd",    "in": [ -5,  25], "out": [  -5,  25], "hard": [  -5,  25]},
+    {"name": "ring_mcp",    "in": [  0,  90], "out": [   0,  80], "hard": [   0,  80]},
+    {"name": "ring_pip",    "in": [  0, 100], "out": [   0,  90], "hard": [   0,  90]},
+    {"name": "ring_dip",    "in": [  0,  80], "out": [   0,  40], "hard": [   0,  40]},
+
+    {"name": "pinky_abd",   "in": [  0,  15], "out": [   0,   5], "hard": [   0,   5]},
+    {"name": "pinky_mcp",   "in": [  0,  90], "out": [   0,  35], "hard": [ -10,  35]},
+    {"name": "pinky_pip",   "in": [  0, 100], "out": [   0,  90], "hard": [   0,  90]},
+    {"name": "pinky_dip",   "in": [  0,  80], "out": [   0,  85], "hard": [   0,  85]}
+  ]
+}

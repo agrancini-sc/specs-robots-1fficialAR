@@ -1,0 +1,18 @@
+{
+    "dependencies": [
+        {
+            "assetId": "1aPW5eMfMPeP1615dXiqyN",
+            "exportId": "1779095d-6554-48cd-9af0-50526ce0bddb",
+            "id": "0f7a0bbe-777c-41a5-b979-0b0430f25836",
+            "name": "SpectaclesInteractionKit",
+            "version": "0.17.3"
+        },
+        {
+            "assetId": "7pJbKPpGSYDaQrYPtHhfiL",
+            "exportId": "b835b023-4787-4116-9170-dab0f06a89c2",
+            "id": "8c9a8f41-acd1-446a-b428-742bbc993c39",
+            "name": "SpectaclesUIKit",
+            "version": "0.1.5"
+        }
+    ]
+}

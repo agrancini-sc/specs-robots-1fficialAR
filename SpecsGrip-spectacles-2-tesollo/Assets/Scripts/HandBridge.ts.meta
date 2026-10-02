@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/5803ca9b-8766-4e7f-b422-e4769b77262c>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 31e40462-b3ca-4ddf-9a0e-dce2693c037c
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 31e40462-b3ca-4ddf-9a0e-dce2693c037c
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> a7e07851-7684-4024-9af3-5c4ae5fc20bb
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/a7e07851-7684-4024-9af3-5c4ae5fc20bb>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 0634980b-cd81-4735-87f7-1522656f3e49
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    autoSwitchHand: false
+    debugLog: false
+    handToTrack: false
+    sendRateHz: false
+    serverUrl: false
+    statusText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - serverUrl: "ws://192.168.124.7:8765"
+      handToTrack: right
+      autoSwitchHand: false
+      sendRateHz: !<float> 60.000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      debugLog: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - "// @input string serverUrl = \"ws://192.168.7.148:8765, ws://192.168.124.7:8765\" {\"hint\":\"Bridge address(es). Comma-separate several and the Lens cycles through them on each retry -- useful because the network can hand the PC a new IP every so often. Run 'py netcheck.py' on the PC for the current one.\"}"
+    - "// @input string handToTrack = \"right\" {\"hint\":\"Which of YOUR hands drives the robot. The robot is a DG-5F-R (right hand), so 'right' maps straight across; 'left' is mirrored automatically.\", \"widget\":\"combobox\", \"values\":[{\"label\":\"right\", \"value\":\"right\"}, {\"label\":\"left\", \"value\":\"left\"}]}"
+    - '// @input bool autoSwitchHand {"hint":"Tick to follow whichever hand is visible, switching automatically. The hand above is only the starting preference. Left-hand input is mirrored so the robot moves the same way either way."}'
+    - "// @input float sendRateHz = 60 {\"hint\":\"Send rate in Hz. 60 matches the bridge's default control loop.\"}"
+    - '// @input Component.Text statusText {"hint":"Optional but STRONGLY recommended: a Text component to show connection status on-device. Park it under the Camera so it is always visible."}'
+    - '// @input bool debugLog {"hint":"Also print status to the Logger panel (only visible while tethered to Lens Studio)."}'
